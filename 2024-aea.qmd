@@ -54,7 +54,7 @@ This is a welcome addition to the literature. @dhar2022reshaping
 
 -   [having employed spouses]{style="background:rgb(204,204,204);"} [**Question:** Is this a good potential mechanism?]{.red .fragment}
 
-[![](https://cdn.mathpix.com/snip/images/t1xmSYFki1ffOHk2NchVFSxA1WOPRmGTcFQ3qSyfsfM.original.fullsize.png)][.fragment]
+[![](https://cdn.mathpix.com/snip/images/t1xmSYFki1ffOHk2NchVFSxA1WOPRmGTcFQ3qSyfsfM.original.fullsize.png)]{.fragment}
 
 # Empirical Methods
 
