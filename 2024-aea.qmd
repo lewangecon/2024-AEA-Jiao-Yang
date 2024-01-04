@@ -1,0 +1,274 @@
+---
+title: "Comments on *Like Mother, Like Child: The Earned Income Tax Credit and Gender Norms*"
+author: "Le Wang"
+institute: "Virginia Tech"
+title-slide-attributes:
+  data-background-color: rgb(134,31,65)
+format: 
+  revealjs:
+    html-math-method: mathjax
+    template-partials:
+      - title-slide.html    
+    theme: metropolis.scss
+    transition: fade
+    slide-number: true
+    chalkboard: true    
+    preview-links: auto
+bibliography: references.bib
+editor: visual
+#filters:
+#  - reveal-auto-agenda
+---
+
+# Summary
+
+## Summary
+
+This is a welcome addition to the literature. @dhar2022reshaping
+
+> Gender gap exists. Many of the gender gaps have not narrowed in recent decades despite economic progress. [Cultural norms]{.blue} often underpin these disparities, and economic development alone is unlikely to eliminate them (Alesina, Giuliano, and Nunn 2013; Jayachandran 2021).
+
+1.  Various policies
+
+2.  Direct educational approach
+
+## Summary
+
+@bau2021can: Can policy change culture? Government pension plans and traditional kinship practices
+
+> Cultural traditions evolve in response to the conditions in which humans live (@boyd1988culture) and can facilitate better outcomes by alleviating market incompleteness and substituting for laws or policies (@greif1993contract). As modernizing countries adopt new policies, culture may change.
+
+## Mechanisms
+
+[Most important Question:]{.blue} **What are the reasons or stories?**
+
+-   Need for a more coherent framework
+
+-   Are these plausible candidates?
+
+## Mechanisms
+
+-   [Mothers' attitudes towards working women]{style="background:rgb(214,254,208);"}
+
+-   [improved educational outcome]{style="background:rgb(247,206,205);"}
+
+-   [having employed spouses]{style="background:rgb(204,204,204);"} [**Question:** Is this a good potential mechanism?]{.red .fragment}
+
+![](https://cdn.mathpix.com/snip/images/t1xmSYFki1ffOHk2NchVFSxA1WOPRmGTcFQ3qSyfsfM.original.fullsize.png)
+
+# Empirical Methods
+
+## Empirical Methods (DID?)
+
+```{r echo = FALSE}
+library(tidyverse)
+data <- data.frame(t =  c(-1, 0, 1, 2, 3),
+                   y0 = c( 5, 5, 5, 5, 5), 
+                   y1 = c( 4, 4, 3.8, 3.6, 3.4),
+                   y2 = c( 3, 3, 2, 1, 0))
+
+p1 <- ggplot(data = data) +
+  geom_line(mapping = aes(x = t, y = y0), color = "black") +
+  geom_line(mapping = aes(x = t, y = y1), color = "red") +
+  geom_line(mapping = aes(x = t, y = y2), color = "blue") +
+  geom_vline(xintercept = 0) +
+  geom_vline(xintercept = 1) +
+  scale_y_continuous(limits = c(0,5))
+  
+
+p1
+```
+
+## Empirical Methods (DID?)
+
+
+```{r echo = FALSE}
+library(tidyverse)
+data <- data.frame(t =  c(-1, 0, 1, 2, 3),
+                   y0 = c( 5, 5, 5, 5, 5), 
+                   y1 = c( 4, 4, 3.8, 3.6, 3.4),
+                   y2 = c( 3, 3, 2, 1, 0),
+                   y3 = c( 3, 3, 2.8, 2.6, 2.4))
+
+p1 <- ggplot(data = data) +
+  geom_line(mapping = aes(x = t, y = y0), color = "black") +
+  geom_line(mapping = aes(x = t, y = y1), color = "red") +
+  geom_line(mapping = aes(x = t, y = y2), color = "blue") +
+  geom_line(data = filter(data, t>=0), mapping = aes(x = t, y = y3), color = "red", linetype="dotted",size=rel(2)) +  
+  geom_vline(xintercept = 0) +
+  geom_vline(xintercept = 1) +
+  geom_hline(yintercept = 3, linetype="dotted", color = "blue", size = rel(3)) +
+  scale_y_continuous(limits = c(0,5))
+  
+
+p1
+```
+
+## Notations (Heterogeneity in group TE)
+
+$t = 0, 1$ (born before and after 1975)
+
+[Potential Outcomes]{.blue} 
+
++ $Y_t(1)$ is the potential outcome for a group receiving the EITC benefit in the second time period $1$ (i.e., exposed group). 
+
++ $Y_t(0)$ is the potential outcome for a group that never receives any EITC benefits. 
+
+[Individual]{.blue} [Treatment effect]{.red} is defined as 
+$$
+Y_{t=1}(1) - Y_{t=1}(0)
+$$
+
+[Group]{.blue} [Treatment Effect]{.red} is defined as 
+$$
+ATT =\mathbb{E}[Y_{t=1}(1) - Y_{t=1}(0) \mid Treated = 1, Length = 1]
+$$
+
+
+## Proof
+
+$$
+\begin{aligned}
+& (\mathbb{E}[Y \mid Treated = 1, Length = 1] - \mathbb{E}[Y \mid Treated = 1, Length = 0])  \\ - &(\mathbb{E}[Y \mid Treated = 0, Length = 1] - \mathbb{E}[Y \mid Treated = 0, Length = 0]) \\
+= &  (\mathbb{E}[Y(1) \mid Treated = 1, Length = 1] - \mathbb{E}[Y(0) \mid Treated = 1, Length = 0])\\
+& (\mathbb{E}[Y(1) \mid Treated = 0, Length = 1] - \mathbb{E}[Y(0) \mid Treated = 0, Length = 0]) \\
+= & \underset{ATT_{\text{two child family}}}{\underbrace{(\mathbb{E}[Y(1) \mid Treated = 1, Length = 1] - \mathbb{E}[Y(0) \mid Treated = 1, Length = 1])}}  \\
+& + \underset{\text{Selection Bias: two child family}}{\underbrace{(\mathbb{E}[Y(0) \mid Treated = 1, Length = 1] - \mathbb{E}[Y(0) \mid Treated = 1, Length = 0])}} \\ 
+ & + \underset{ATT_{\text{one child family}}}{\underbrace{(\mathbb{E}[Y(1) \mid Treated = 0, Length = 1] - \mathbb{E}[Y(0) \mid Treated = 0, Length = 1])}}  \\
+ & + \underset{\text{Selection Bias: one child family}}{\underbrace{(\mathbb{E}[Y(0) \mid Treated = 0, Length = 1] - \mathbb{E}[Y(0) \mid Treated = 0, Length = 0])}} \\ 
+\end{aligned}
+$$
+
+. . .
+
+::: {style="background: #a13c6530; width: 1054px; height: 50px; margin: 5px; position: absolute; top: 310px; left: -7px;"}
+:::
+
+::: {style="background: #a13c6530; width: 1054px; height: 50px; margin: 5px; position: absolute; top: 470px; left: -7px;"}
+:::
+
+. . .
+
+::: {style="background: #fa551c30; width: 1054px; height: 50px; margin: 5px; position: absolute; top: 390px; left: -7px;"}
+:::
+
+## Empirical Methods (Identifiation)
+
+The EITC credits for families with more than two children became around \$1,500 higher than for those with just one child. The analysis primarily focuses on the comparison between families with one child and those with more than one child.
+
+1. Family size is taken as given, but there is some evidence showing that EITC also affects fertility (@baughman2009earned @bastian2017unintended). The paper should probably do a better job than simply stating
+
+    > Existing studies, such as those by Eissa and Hoynes (2004), have found no evidence of fertility selection due to the EITC. We also examine whether mothers in states with more generous benefits exhibited different fertility behaviors following the 1993 expansion and found no significant effects.
+
+[2. Does the effect vary across the subgroups?]{.fragment}
+
+[3. Even if the total number of children is not affected, timing of fertility (birth spacing) can also affect the benefit levels and amount of exposure.]{.fragment}
+
+## Empirical Methods (Identifiation)
+
+[Question:]{.red} **How may this affect the analysis?**
+
+::: incremental
+-   To the extent that EITC indeed affects the outcome, the control group can contain those who had more kids and were exposed to more benefits. The effect can then be biased downward. (Neither DID specifications address this issue [potentially explain the null result]{.blue})
+-   This directly affects the later calculation of EITC exposure (see next page).
+:::
+
+## Empirical Methods (Identification)
+
+The variation in annual EITC exposure for each individual arises from three main sources:
+
+(1) the year of birth, which reflects the generosity of the federal credit;
+
+(2) the state of residence, which determines state EITC benefits; and
+
+(3) [the number of qualifying children in the household and their age differences, which affects the EITC benefits for larger families.]{style="background:rgb(247,206,205);"}
+
+## Empirical Methods (Identification)
+
+$$
+\begin{array}{r}
+\text { Att }_{\text {icst }}=\beta_1 \times \text { NonExposure }_c+\beta_2 \times \text { PartialExposure }_c+\gamma_1 \text { Treated }_i \times \text { NonExposure }_c \\
++\gamma_2 \text { Treated }_i \times \text { PartialExposure }_c+\theta X_{i c s t}+\text { Streated }_i+\lambda_{s c}+\lambda_t+\varepsilon_{i c s},
+\end{array}
+$$ - **the non-exposure cohort**: those born before 1975 ([potentially ignoring spillover effects]{.red} [again, potentially explain the null result in **pre-trend analysis**]{.blue}))
+
+-   The coefficients are large in size.
+
+<div>
+::: {.columns align="center"}
+::: {.column .fragment width="50%"}
+![](https://cdn.mathpix.com/snip/images/JjwEiHM3q_ZK6JXrkQ2GANlg2wpHLTH3hpogs3dfoJg.original.fullsize.png)
+:::
+
+::: {.column .fragment width="39%"}
+![](https://cdn.mathpix.com/snip/images/XGIbpO3pRtiY527GB2-i_l-4yO1gr6gsrlZOEr-erJs.original.fullsize.png)
+:::
+:::
+</div>
+
+
+
+## Empirical Methods (Identifiation)
+
+Other issues:
+
+2.  Control variables: [Perhaps a potential mechanism as well?]{.red}
+
+-   family size (more female siblings?)
+-   Mother's marital status (@bastian2017unintended)
+
+
+
+## Dependent Variable
+
+$$
+Att_i=\frac{\sum_n A t t_{n, i}}{3}
+$$
+
+::: incremental
+1.  Does it accurately reflect gender attitude? One may say that this question may be more indicative of the financial constraint facing the family.
+
+    ![](https://cdn.mathpix.com/snip/images/UGBWqeV3YGw3xAmgrVjCZz9p-UzdTMBFDM7tWuurWZ4.original.fullsize.png){width="700"}
+
+2.  An index variable is nothing but a weighted average of several variables. The weights are arbitrary, and the interpretations of the empirical results for such index variable are therefore unclear.
+
+-   Not only could it conceal some interesting heterogeneity in the policy effects on various dimensions of gender attitude,
+-   it could also drastically over- or underestimate the impacts, especially when these variables are highly correlated with each other.
+:::
+
+## Dependent Variable
+
+3.  @dhar2022reshaping:
+
+> A key concern with self-reported outcomes such as gender attitudes is the possibility of [**social desirability bias**]{.blue}.
+
+-- the tendency of survey respondents to answer questions in a manner that will be viewed favorably by others. It can take the form of over-reporting "good behavior" or under-reporting "bad", or undesirable behavior.
+
+Such concern inevitably leads to [non-classical measurement error]{.red}
+
+> to address this concern more rigorously, we use the [Marlowe-Crowne social desirability scale]{.blue} [^1]
+
+[^1]: , which is a survey module developed by social psychologists to measure a person's propensity to give socially desirable answers (Crowne and Marlowe 1960). The module, which we included in the baseline survey, asks respondents if they have several too-good-to-be-true traits such as never being jealous of another person's good fortune and always being a good listener; those who report more of these traits are scored as having a higher propensity to give socially desirable answers.
+
+## Interpretation of Empirical Results
+
+A main finding
+
+> there is significant heterogeneity in the impact of EITC benefits on gender attitudes, particularly when considering maternal education.
+
+This result is obtained by interacting the "treatment" variable with maternal education. It may simply capture the initial level of gender attitude? The role of education may be over-stated.
+
+## Mechanism Variable
+
+> Mothers in the NLSY79 were surveyed about women's roles in the labor market in 1979, 1982, 1987, and 2004. We create a comparable metric for mothers, mirroring the measurement for sons, to gauge a mother's perspective on women's roles. Our analysis includes mothers who responded to all survey questions, covering
+
+[Question]{.red} How are multiple-year observations handled?
+
+[Question]{.red} Should we consider a *change* in attitude?
+
+
+
+## References
+
+::: {#refs}
+:::
