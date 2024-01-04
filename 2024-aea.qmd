@@ -54,9 +54,17 @@ This is a welcome addition to the literature. @dhar2022reshaping
 
 -   [having employed spouses]{style="background:rgb(204,204,204);"} [**Question:** Is this a good potential mechanism?]{.red .fragment}
 
-![](https://cdn.mathpix.com/snip/images/t1xmSYFki1ffOHk2NchVFSxA1WOPRmGTcFQ3qSyfsfM.original.fullsize.png)
+[![](https://cdn.mathpix.com/snip/images/t1xmSYFki1ffOHk2NchVFSxA1WOPRmGTcFQ3qSyfsfM.original.fullsize.png)][.fragment]
 
 # Empirical Methods
+
+## Empirical Methods
+
+
+The EITC credits for families with more than two children became around \$1,500 higher than for those with just one child. The analysis primarily focuses on the comparison between families with one child and those with more than one child.
+
+1. Implicit, additional Assumption
+2. Issues surrounding fertility decision
 
 ## Empirical Methods (DID?)
 
@@ -80,7 +88,6 @@ p1
 ```
 
 ## Empirical Methods (DID?)
-
 
 ```{r echo = FALSE}
 library(tidyverse)
@@ -108,22 +115,19 @@ p1
 
 $t = 0, 1$ (born before and after 1975)
 
-[Potential Outcomes]{.blue} 
+[Potential Outcomes]{.blue}
 
-+ $Y_t(1)$ is the potential outcome for a group receiving the EITC benefit in the second time period $1$ (i.e., exposed group). 
+-   $Y_t(1)$ is the potential outcome for a group receiving the EITC benefit in the second time period $1$ (i.e., exposed group).
 
-+ $Y_t(0)$ is the potential outcome for a group that never receives any EITC benefits. 
+-   $Y_t(0)$ is the potential outcome for a group that never receives any EITC benefits.
 
-[Individual]{.blue} [Treatment effect]{.red} is defined as 
-$$
+[Individual]{.blue} [Treatment effect]{.red} is defined as $$
 Y_{t=1}(1) - Y_{t=1}(0)
 $$
 
-[Group]{.blue} [Treatment Effect]{.red} is defined as 
-$$
+[Group]{.blue} [Treatment Effect]{.red} is defined as $$
 ATT =\mathbb{E}[Y_{t=1}(1) - Y_{t=1}(0) \mid Treated = 1, Length = 1]
 $$
-
 
 ## Proof
 
@@ -156,7 +160,7 @@ $$
 
 The EITC credits for families with more than two children became around \$1,500 higher than for those with just one child. The analysis primarily focuses on the comparison between families with one child and those with more than one child.
 
-1. Family size is taken as given, but there is some evidence showing that EITC also affects fertility (@baughman2009earned @bastian2017unintended). The paper should probably do a better job than simply stating
+1.  Family size is taken as given, but there is some evidence showing that EITC also affects fertility (@baughman2009earned @bastian2017unintended). The paper should probably do a better job than simply stating
 
     > Existing studies, such as those by Eissa and Hoynes (2004), have found no evidence of fertility selection due to the EITC. We also examine whether mothers in states with more generous benefits exhibited different fertility behaviors following the 1993 expansion and found no significant effects.
 
@@ -195,6 +199,7 @@ $$ - **the non-exposure cohort**: those born before 1975 ([potentially ignoring 
 -   The coefficients are large in size.
 
 <div>
+
 ::: {.columns align="center"}
 ::: {.column .fragment width="50%"}
 ![](https://cdn.mathpix.com/snip/images/JjwEiHM3q_ZK6JXrkQ2GANlg2wpHLTH3hpogs3dfoJg.original.fullsize.png)
@@ -204,9 +209,8 @@ $$ - **the non-exposure cohort**: those born before 1975 ([potentially ignoring 
 ![](https://cdn.mathpix.com/snip/images/XGIbpO3pRtiY527GB2-i_l-4yO1gr6gsrlZOEr-erJs.original.fullsize.png)
 :::
 :::
+
 </div>
-
-
 
 ## Empirical Methods (Identifiation)
 
@@ -216,8 +220,6 @@ Other issues:
 
 -   family size (more female siblings?)
 -   Mother's marital status (@bastian2017unintended)
-
-
 
 ## Dependent Variable
 
@@ -265,8 +267,6 @@ This result is obtained by interacting the "treatment" variable with maternal ed
 [Question]{.red} How are multiple-year observations handled?
 
 [Question]{.red} Should we consider a *change* in attitude?
-
-
 
 ## References
 
